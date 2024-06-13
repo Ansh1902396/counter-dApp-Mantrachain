@@ -7,19 +7,19 @@ require('dotenv').config();
 
 
 const mnemonic = process.env.MNEMONIC; // Replace with your mnemonic
-const rpcEndpoint = process.env.RPC; // Replace with your RPC endpoint
+const rpcEndpoint = "https://rpc.hongbai.mantrachain.io"; // Replace with your RPC endpoint
 const contractWasmPath = "./dinonum.wasm"; // Path to your compiled contract
 
 async function deploy() {
   // Step 1: Set up wallet and client
   const wallet = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, {
-    prefix: "orai", // Replace with the correct prefix for your chain
+    prefix: "mantra", // Replace with the correct prefix for your chain
   });
   const [account] = await wallet.getAccounts();
   console.log(`Wallet address: ${account.address}`);
 
   // Step 2: Connect to the blockchain
-  const client = await SigningCosmWasmClient.connectWithSigner(rpcEndpoint, wallet , { gasPrice: GasPrice.fromString('0.0025orai')});
+  const client = await SigningCosmWasmClient.connectWithSigner(rpcEndpoint, wallet , { gasPrice: GasPrice.fromString('0.025uom')});
   console.log("Connected to blockchain");
 
   // Step 3: Upload contract 
@@ -32,7 +32,7 @@ async function deploy() {
   const initMsg = {
     count : 10
   }; // Replace with your contract's init message
-  const instantiateReceipt = await client.instantiate(account.address, codeId, initMsg, "My Oracle Contract", "auto");
+  const instantiateReceipt = await client.instantiate(account.address, codeId, initMsg, "My Dinonum Contract", "auto");
   const contractAddress = instantiateReceipt.contractAddress;
   console.log(`Contract instantiated at reciept: ${instantiateReceipt}`)
   console.log(`Contract instantiated at address: ${contractAddress}`);
