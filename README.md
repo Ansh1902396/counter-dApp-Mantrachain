@@ -1,3 +1,2 @@
 # counter-dApp
 
-contract : orai1lkfg3s276jlwudq0690h68wdgx040celgrrx9w37zx4atf8aae6sp0tw0q
