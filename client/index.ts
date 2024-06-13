@@ -18,7 +18,7 @@ async function connect() {
     const wallet = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, { prefix: "orai" });
     const [{ address }] = await wallet.getAccounts();
 
-    const rpcEndpoint = "https://rpc.orai.io"
+    const rpcEndpoint = "https://rpc.hongbai.mantrachain.io"
 
     const client = await SigningStargateClient.connectWithSigner(rpcEndpoint, wallet);
 
@@ -55,7 +55,7 @@ export async function getCosmWasmClient(
       rpcEndpoint,
       wallet,
       {
-        gasPrice: GasPrice.fromString('0.00025orai'),
+        gasPrice: GasPrice.fromString('0.00025uom'),
       }
     );
 
@@ -65,7 +65,7 @@ export async function getCosmWasmClient(
 
   export async function IncrementCounter() {
     const address = connect()
-    const client = await getSigningCosmWasmClient("https://rpc.orai.io" , mnemonic , "orai");
+    const client = await getSigningCosmWasmClient("https://rpc.orai.io" , mnemonic , "mantra");
     const contractAddress = "orai1lkfg3s276jlwudq0690h68wdgx040celgrrx9w37zx4atf8aae6sp0tw0q"
 
     const dinonum = new DinonumClient(client , (await address).address , contractAddress);
@@ -75,8 +75,8 @@ export async function getCosmWasmClient(
 
   export async function GetCounter() {
     const address = connect()
-    const client = await getCosmWasmClient("https://rpc.orai.io" , mnemonic , "orai");
-    const contractAddress = "orai1lkfg3s276jlwudq0690h68wdgx040celgrrx9w37zx4atf8aae6sp0tw0q"
+    const client = await getCosmWasmClient("https://rpc.orai.io" , mnemonic , "mantra");
+    // const contractAddress = "ENTER YOUR ADDRESS"
 
     const dinonum = new DinonumQueryClient(client , contractAddress);
 
